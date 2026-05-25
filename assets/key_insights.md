@@ -74,7 +74,7 @@ Alternative solutions needed for high noise environments
 
 -----
 
-----**Recommendations**
+**Recommendations**
 
 **1 — Use devices only in low/medium noise areas**
 
@@ -119,5 +119,17 @@ Early morning or late night when factory noise is lower
 
 Redistribute device usage away from peak production hours
 
+-----
+
+Monthly session volume is volatile with no clear trend
+Jan 2025 had peak sessions at 1065
+Resource planning is difficult due to unpredictable demand
+
+----
+
+93% session completion rate is strong
+840 failed sessions represent significant operational risk at scale
+Dropped = technical failure, Timed-out = process failure
+Different solutions needed for each failure type
 
 

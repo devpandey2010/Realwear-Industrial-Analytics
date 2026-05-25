@@ -1,0 +1,54 @@
+# Excel Analysis Summary
+
+## Dataset Overview
+- Total Sessions: 12,000
+- Plants: 5
+- Devices: 20
+- Analysis Period: Jan 2025 - Jan 2026
+
+## Analysis Performed
+- Data Cleaning & Validation
+- Feature Engineering (3 new columns)
+- 8 Pivot Table Analyses
+- 7 Charts & Visualizations
+- Interactive Dashboard
+
+## Key Findings
+
+### Plant Performance
+- Bokaro has highest productivity score
+- Vadodara has lowest productivity score
+
+### Shift Analysis
+- Night shift most productive
+- Night shift has longest resolution time
+- Morning shift has highest command failure rate
+
+### Platform Comparison
+- MS Teams outperforms Webex across all metrics
+- 33% higher resolution efficiency
+- 17% higher productivity score
+- 15% higher command success rate
+
+### Noise Impact
+- High noise increases failure rate by 60%
+- External microphone not effective
+- Alternative solutions recommended
+
+### Device Health
+- All 20 devices at medium battery risk
+- No devices at critical failure risk
+- Preventive maintenance recommended
+
+### Monthly Trends
+- Session volume volatile month to month
+- Productivity stable between 76-78%
+- Jan 2026 data incomplete
+
+## Recommendations
+1. Investigate Vadodara plant performance
+2. Optimize night shift resolution process
+3. Standardize MS Teams across all plants
+4. Restrict device usage in high noise areas
+5. Schedule preventive maintenance for devices
+
