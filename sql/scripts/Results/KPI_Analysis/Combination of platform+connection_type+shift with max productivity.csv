@@ -1,0 +1,6 @@
+Platform,Connection_Type,Shift,Avg_Productivity_Score
+MS Teams,LTE,Night (22:00-06:00),85.3980251346499
+MS Teams,Wi-Fi 2.4GHz,Night (22:00-06:00),85.1305397727273
+MS Teams,Wi-Fi 5GHz,Morning (06:00-14:00),85.1182489451477
+MS Teams,Wi-Fi 2.4GHz,Morning (06:00-14:00),85.0184962406015
+MS Teams,Wi-Fi 5GHz,Night (22:00-06:00),84.9253521126761

@@ -1,0 +1,6 @@
+Plant_Location,Total_Sessions,Total_Downtime_Saved_Hours,Avg_Productivity_Score,Avg_Resolution_Time,Resolution_Rate_Pct,Drop_Rate_Pct,Total_Incidents,Productivity_Percentile,Productivity_Rank
+Bokaro Manufacturing Hub,2433,2023.18,78.04,49.5,73.74,4.19,140,1.0,1
+Pune Automation Plant,2421,2012.52,77.88,49.38,72.41,4.38,177,0.75,2
+Jamshedpur Steel Plant,2403,1984.0,77.25,48.94,71.29,4.74,148,0.5,3
+Chennai Refinery Unit,2432,2017.35,77.15,49.41,71.22,5.02,152,0.0,4
+Vadodara Chemical Unit,2311,1913.88,77.15,49.06,71.22,5.41,171,0.0,4
