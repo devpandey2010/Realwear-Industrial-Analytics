@@ -1,0 +1,8 @@
+Worker_Role,total_roles,avg_satisfaction,pct_unhappy,pct_neutral,pct_happy,polarisation_score
+Safety Officer,69,3.0,17.39,34.78,47.83,8.3
+Process Engineer,61,4.0,14.75,29.51,55.74,8.2
+Floor Operator,73,4.0,10.96,24.66,64.38,7.1
+Shift Supervisor,88,4.0,12.5,30.68,56.82,7.1
+Maintenance Technician,73,4.0,9.59,32.88,57.53,5.5
+Quality Inspector,75,4.0,8.0,37.33,54.67,4.4
+Welder,61,4.0,6.56,32.79,60.66,4.0

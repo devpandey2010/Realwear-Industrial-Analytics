@@ -1,0 +1,6 @@
+Plant_Location,Worker_ID,avg_productivity,avg_downtime_saved,resolution_rate,Avg_Resolution_Time,rn
+Bokaro Manufacturing Hub,W-8933,100.0,72.0,100.0,26.6,1
+Chennai Refinery Unit,W-7167,100.0,67.7,100.0,39.7,1
+Jamshedpur Steel Plant,W-9354,100.0,35.7,100.0,19.8,1
+Pune Automation Plant,W-9538,100.0,88.1,100.0,10.6,1
+Vadodara Chemical Unit,W-9093,100.0,91.6,100.0,9.6,1
