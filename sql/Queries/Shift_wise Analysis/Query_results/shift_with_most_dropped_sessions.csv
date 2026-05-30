@@ -1,0 +1,25 @@
+shift,issue_type,count(*),number_of_dropped_session_per_shift,drop_rate_pct,rank_within_shift
+Afternoon (14:00-22:00),Routine Inspection,503,28,5.57,1
+Afternoon (14:00-22:00),Motor Overheating,540,26,4.81,2
+Afternoon (14:00-22:00),Pipeline Leakage,435,25,5.75,3
+Afternoon (14:00-22:00),Calibration Issue,511,24,4.7,4
+Afternoon (14:00-22:00),Machine Failure,509,23,4.52,5
+Afternoon (14:00-22:00),Safety Audit,493,20,4.06,6
+Afternoon (14:00-22:00),Sensor Malfunction,521,20,3.84,6
+Afternoon (14:00-22:00),Electrical Fault,519,18,3.47,8
+Morning (06:00-14:00),Pipeline Leakage,498,34,6.83,1
+Morning (06:00-14:00),Calibration Issue,498,26,5.22,2
+Morning (06:00-14:00),Electrical Fault,508,24,4.72,3
+Morning (06:00-14:00),Routine Inspection,467,21,4.5,4
+Morning (06:00-14:00),Machine Failure,484,20,4.13,5
+Morning (06:00-14:00),Motor Overheating,521,18,3.45,6
+Morning (06:00-14:00),Sensor Malfunction,501,18,3.59,6
+Morning (06:00-14:00),Safety Audit,487,14,2.87,8
+Night (22:00-06:00),Sensor Malfunction,517,39,7.54,1
+Night (22:00-06:00),Machine Failure,474,30,6.33,2
+Night (22:00-06:00),Pipeline Leakage,499,29,5.81,3
+Night (22:00-06:00),Routine Inspection,469,29,6.18,3
+Night (22:00-06:00),Electrical Fault,521,24,4.61,5
+Night (22:00-06:00),Calibration Issue,519,22,4.24,6
+Night (22:00-06:00),Safety Audit,509,19,3.73,7
+Night (22:00-06:00),Motor Overheating,497,18,3.62,8

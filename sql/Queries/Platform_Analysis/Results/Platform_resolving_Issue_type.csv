@@ -1,0 +1,17 @@
+platform,Issue_Type,avg_resolution_time,rn
+MS Teams,Calibration Issue,48.8896551724138,1
+Webex,Calibration Issue,49.3336776859504,2
+MS Teams,Electrical Fault,47.1403425309229,1
+Webex,Electrical Fault,48.2802816901409,2
+MS Teams,Machine Failure,50.814091350826,1
+Webex,Machine Failure,52.4666666666666,2
+Webex,Motor Overheating,48.2051792828685,1
+MS Teams,Motor Overheating,49.4171401515152,2
+Webex,Pipeline Leakage,49.5632653061224,1
+MS Teams,Pipeline Leakage,49.7126135216952,2
+MS Teams,Routine Inspection,49.2026503567789,1
+Webex,Routine Inspection,50.5923580786026,2
+MS Teams,Safety Audit,48.717730496454,1
+Webex,Safety Audit,50.1219123505976,2
+Webex,Sensor Malfunction,48.8635991820041,1
+MS Teams,Sensor Malfunction,48.894380952381,2

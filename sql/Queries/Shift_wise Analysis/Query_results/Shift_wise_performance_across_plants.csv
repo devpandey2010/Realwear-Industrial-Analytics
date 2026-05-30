@@ -1,0 +1,16 @@
+Plant_Location,shift,total_session_per_shift,avg_productivity,avg_command_failures,total_downtime_saved_per_shift_in_hour,Total_issue_resolved,Total_incident_reported,avg_resolution_time_per_shift,rn
+Bokaro Manufacturing Hub,Night (22:00-06:00),814,78.28,5.48,699.2,608,46,50.02,1
+Bokaro Manufacturing Hub,Morning (06:00-14:00),818,77.95,5.65,670.03,603,49,49.9,2
+Bokaro Manufacturing Hub,Afternoon (14:00-22:00),801,77.89,5.32,653.95,583,45,48.58,3
+Chennai Refinery Unit,Morning (06:00-14:00),804,77.56,5.68,664.14,581,55,48.72,1
+Chennai Refinery Unit,Night (22:00-06:00),805,77.16,5.66,668.79,576,50,49.57,2
+Chennai Refinery Unit,Afternoon (14:00-22:00),823,76.74,5.64,684.42,575,47,49.94,3
+Jamshedpur Steel Plant,Morning (06:00-14:00),800,77.5,5.62,673.39,577,47,48.43,1
+Jamshedpur Steel Plant,Afternoon (14:00-22:00),807,77.37,5.72,663.24,577,48,49.04,2
+Jamshedpur Steel Plant,Night (22:00-06:00),796,76.86,5.97,647.38,559,53,49.35,3
+Pune Automation Plant,Night (22:00-06:00),792,78.85,5.34,660.53,599,61,50.0,1
+Pune Automation Plant,Morning (06:00-14:00),790,77.57,5.68,658.64,566,66,49.5,2
+Pune Automation Plant,Afternoon (14:00-22:00),839,77.25,5.41,693.34,588,50,48.69,3
+Vadodara Chemical Unit,Afternoon (14:00-22:00),761,77.48,5.68,634.06,555,47,49.15,1
+Vadodara Chemical Unit,Night (22:00-06:00),798,77.21,5.66,665.63,569,68,50.51,2
+Vadodara Chemical Unit,Morning (06:00-14:00),752,76.74,5.44,614.19,522,56,47.43,3

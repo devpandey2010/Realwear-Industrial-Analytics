@@ -1,0 +1,9 @@
+platform,classification,avg_command_success_rate,overall_rank
+MS Teams,Low noise,92.35,1
+MS Teams,medium noise,91.55,2
+MS Teams,High noise,86.48,3
+MS Teams,Very high noise,81.08,4
+Webex,Low noise,67.52,5
+Webex,medium noise,66.49,6
+Webex,High noise,61.36,7
+Webex,Very high noise,55.86,8

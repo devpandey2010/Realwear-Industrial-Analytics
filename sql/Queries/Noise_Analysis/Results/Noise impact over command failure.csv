@@ -1,0 +1,5 @@
+Classification,Min_Noise,Max_Noise,Avg_Failures,Total_Sessions,Spike_From_Previous
+Low noise,45.0,63.2,4.24,2989,NULL
+medium noise,63.3,81.5,4.63,3015,0.39
+High noise,81.6,99.8,6.02,3063,1.39
+Very high noise,99.9,118.0,7.56,2933,1.54

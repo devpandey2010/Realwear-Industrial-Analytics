@@ -1,0 +1,4 @@
+Device_ID,avg_battery_drain,avg_Command_Failure,norm_battery_drain,norm_command_failure,battery_health,battery_condition
+RW-NAV-04,12.6415384615385,5.79145299145299,71.62,84.03,76.58,Critical-Immediate Maintenance
+RW-NAV-12,12.9088962108732,5.58154859967051,100.0,53.96,81.58,Critical-Immediate Maintenance
+RW-NAV-14,12.7713615023474,5.72143974960876,85.4,74.0,80.84,Critical-Immediate Maintenance

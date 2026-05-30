@@ -1,0 +1,5 @@
+device_id,total_sessions,avg_command_failue_per_device,pctile,category,command_failure_per_group,Min_sessions,Max_sessions,avg_sessions,Failure_trend
+RW-NAV-03,559,5.88729874776386,1,Low usage,5.62461240977177,559,620,568.0,Stable
+RW-NAV-04,585,5.79145299145299,2,Medium Usage,5.61821654965592,559,620,589.4,Decreasing
+RW-NAV-13,606,5.70957095709571,3,high usage,5.61560612361781,559,620,610.6,Decreasing
+RW-NAV-07,620,5.20483870967742,4,very high Usage,5.52785336969177,559,620,632.0,Decreasing

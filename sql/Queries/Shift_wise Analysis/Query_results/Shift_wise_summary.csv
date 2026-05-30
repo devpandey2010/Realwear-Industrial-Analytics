@@ -1,0 +1,4 @@
+Shift,total_session_per_shift,avg_productivity,avg_command_failures,total_downtime_saved_per_shift_in_hour,Total_issue_resolved,Total_incident_reported,avg_resolution_time_per_shift
+Night (22:00-06:00),4005,77.67,5.62,3341.52,2911,278,49.89
+Morning (06:00-14:00),3964,77.47,5.62,3280.39,2849,273,48.82
+Afternoon (14:00-22:00),4031,77.34,5.55,3329.01,2878,237,49.08

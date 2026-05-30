@@ -1,0 +1,11 @@
+plant_location,platform,Total_sessions,avg_productivity,avg_command_failures,avg_resolution_time,rn
+Bokaro Manufacturing Hub,MS Teams,1691,85.22,3.38,49.38,1
+Bokaro Manufacturing Hub,Webex,742,61.66,10.26,49.78,2
+Chennai Refinery Unit,MS Teams,1645,84.56,3.48,49.46,1
+Chennai Refinery Unit,Webex,787,61.67,10.22,49.31,2
+Jamshedpur Steel Plant,MS Teams,1638,84.58,3.51,48.47,1
+Jamshedpur Steel Plant,Webex,765,61.55,10.6,49.93,2
+Pune Automation Plant,MS Teams,1658,85.18,3.23,49.19,1
+Pune Automation Plant,Webex,763,62.01,10.36,49.79,2
+Vadodara Chemical Unit,MS Teams,1557,84.49,3.33,48.92,1
+Vadodara Chemical Unit,Webex,754,61.98,10.28,49.35,2
