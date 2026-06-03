@@ -1,4 +1,4 @@
--Q1.Write a complete plant performance scorecard with all metrics in one query
+--Q1.Write a complete plant performance scorecard with all metrics in one query
 
 WITH Plant_Summary as(
     SELECT 
