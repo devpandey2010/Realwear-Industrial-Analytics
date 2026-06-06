@@ -7,9 +7,9 @@ Dataset     : 12,000 sessions | 5 Plants | 20 Devices | Jan 2025 to Jan 2026
 Notebook    : 04_python/notebooks/01_statistics.ipynb
 
 
-================================================================================
-1. SETUP AND DATA LOADING
-================================================================================
+----
+1.SETUP AND DATA LOADING
+----
 
 What We Did
 
@@ -18,12 +18,12 @@ seaborn, matplotlib, scipy.stats, sqlite3 and statsmodels. Data was loaded direc
 from our SQLite database (realwear.db) into pandas DataFrames so that all our
 earlier SQL work could be reused without duplicating data.
 
-Three tables were loaded:
+**Three tables were loaded:**
     Master_Session_Log   (primary analysis table)
     Worker_Master        (worker reference data)
     Device_Health_Log    (device health reference data)
 
-Result
+**Result**
 
     Master Session Log : 12,000 rows x 30 columns
     12 Numeric columns
@@ -31,12 +31,11 @@ Result
     0 DateTime columns (Session_Date was loaded as object type)
     No missing values in any column across all 30 columns
 
+----
+2.COLUMN CLASSIFICATION
+----
 
-================================================================================
-2. COLUMN CLASSIFICATION
-================================================================================
-
-Approach
+**Approach**
 
 We wrote a for loop to iterate through all 30 columns and classify each one based
 on its dtype. This is better than manual classification because it is automated,
@@ -46,7 +45,7 @@ repeatable and handles any new columns added later.
     object columns             =>  Categorical
     datetime64 columns         =>  DateTime
 
-Result
+**Result**
 
     Numeric Columns (12):
         Meeting_Duration_min, Resolution_Time_min, Command_Attempts,
@@ -61,11 +60,11 @@ Result
         External_Mic_Used, Issue_Resolved, Session_Status, Incident_Reported
 
 
-================================================================================
-3. DESCRIPTIVE STATISTICS
-================================================================================
+-----
+3.DESCRIPTIVE STATISTICS
+----
 
-What We Did
+**What We Did**
 
 We computed an extended descriptive statistics table for all 12 numeric columns.
 Beyond the standard statistics (count, mean, std, min, quartiles, max), we added:
@@ -75,7 +74,7 @@ Beyond the standard statistics (count, mean, std, min, quartiles, max), we added
     Variance   :  population level spread
     CV%        :  Coefficient of Variation = (Std / Mean) x 100
 
-Why CV%?
+**Why CV%?**
 
 Standard deviation alone cannot be compared across columns with different scales
 and units. CV% normalizes the spread relative to the mean, making comparisons
@@ -85,7 +84,7 @@ meaningful across different metrics.
     CV% 15 to 30%   =>  Moderate variability
     CV% above 30%   =>  High variability, inconsistent data
 
-Results
+**Results**
 
     Column                   Mean     Std      Skewness   CV%
     Meeting_Duration_min     29.89    14.59    0.02       48.81%
@@ -101,7 +100,7 @@ Results
     Downtime_Saved_min       49.75    26.08    0.01       52.41%
     Productivity_Score       77.50    14.80    -0.52      19.09%
 
-Key Observations
+**Key Observations**
 
 Command_Failures has the highest CV% at 81.84% making it the most inconsistent
 metric across sessions. This tells us that command failure behavior varies
@@ -124,31 +123,30 @@ Resolution_Time_min has CV% of 58.97% indicating that some issues resolve very
 quickly while others take much longer, creating high variability in resolution time.
 
 
-================================================================================
-4. NORMALITY TESTING
-================================================================================
-
-Why We Need This
+-----
+4.NORMALITY TESTING
+-----
+**Why We Need This**
 
 Statistical tests fall into two categories. Parametric tests like T-Test and
 ANOVA assume that data follows a normal distribution. Non-parametric tests like
 Mann-Whitney and Kruskal-Wallis make no such assumption. We must verify normality
 before choosing which type of test to apply.
 
-Test Used: Shapiro-Wilk
+**Test Used: Shapiro-Wilk**
 
 Shapiro-Wilk is the most powerful normality test for samples under 5,000. We
 sampled 5,000 rows from our 12,000 row dataset because with the full dataset
 Shapiro-Wilk becomes oversensitive and begins detecting even very tiny deviations
 from normality as statistically significant, which is not useful in practice.
 
-Hypotheses
+**Hypotheses**
 
     H0 : Data is normally distributed
     H1 : Data is not normally distributed
     Significance Level : alpha = 0.05
 
-Results Before Transformation
+**Results Before Transformation**
 
     Column                   Stat     P-Value    Normal?
     Meeting_Duration_min     0.9540   0.0000     No
@@ -167,23 +165,23 @@ Results Before Transformation
 All 12 columns rejected H0. None of the columns are normally distributed.
 
 
-================================================================================
-5. LOG TRANSFORMATION ATTEMPT
-================================================================================
+----
+5.LOG TRANSFORMATION ATTEMPT
+---
 
-Why We Tried This
+**Why We Tried This**
 
 Log transformation is a standard technique used to reduce right skewness and
 bring data closer to a normal distribution. We used np.log1p instead of np.log
 because np.log(0) is undefined (negative infinity) while np.log1p(0) = log(1+0) = 0,
 safely handling any zero values in Command_Failures.
 
-Results After Log Transformation
+**Results After Log Transformation**
 
 All 12 columns still returned p-value of 0.0000 after transformation. None
 became normally distributed.
 
-Why This Happened
+**Why This Happened**
 
 Real world industrial data with 12,000 observations rarely follows a perfect normal
 distribution. Several natural constraints explain this:
@@ -194,11 +192,11 @@ distribution. Several natural constraints explain this:
     Battery readings are physically bounded between 0 and 100
 
 
-================================================================================
-6. CENTRAL LIMIT THEOREM VERIFICATION
-================================================================================
+----
+6.CENTRAL LIMIT THEOREM VERIFICATION
+----
 
-What is CLT?
+**What is CLT?**
 
 The Central Limit Theorem states that when sample size is greater than 30, the
 sampling distribution of the mean approaches normality regardless of the shape
@@ -208,7 +206,7 @@ Since our data is not normal, we used CLT as the justification for applying
 parametric tests. The key requirement is that every group we compare must have
 a sample size well above 30.
 
-Results
+**Results**
 
     Platform Groups:
         MS Teams   :  8,189 samples    =>  CLT APPLIES
@@ -235,29 +233,29 @@ Results
         No         :  6,380 samples    =>  CLT APPLIES
         Yes        :  5,620 samples    =>  CLT APPLIES
 
-Decision
+**Decision**
 
 Every single group across all comparisons has a sample size far above 30. CLT
 applies strongly. Parametric tests (ANOVA and T-Test) are fully justified for
 this analysis.
 
-Final Testing Strategy
+**Final Testing Strategy**
 
     One Way ANOVA    =>  for comparisons across 3 or more groups
     Welch T-Test     =>  for comparisons between exactly 2 groups
     Effect Size      =>  calculated alongside every test to measure practical significance
 
 
-================================================================================
-7. HYPOTHESIS TEST 1: DOES NOISE LEVEL AFFECT COMMAND FAILURES?
-================================================================================
+----
+7.HYPOTHESIS TEST 1: DOES NOISE LEVEL AFFECT COMMAND FAILURES?
+----
 
-Business Question
+**Business Question**
 
 Do workers in noisier factory environments experience more voice command failures
 when using RealWear devices?
 
-Approach and Test Selection
+**Approach and Test Selection**
 
 We chose One Way ANOVA because we are comparing means across three noise groups
 (Low, Medium, High). ANOVA is specifically designed for three or more group
@@ -270,7 +268,7 @@ Noise categories were defined as:
     Medium Noise :  Noise_Level_dB between 70 and 85 dB
     High Noise   :  Noise_Level_dB above 85 dB
 
-Hypotheses
+**Hypotheses**
 
     H0 : Noise level has no significant effect on command failures
          mu_low = mu_medium = mu_high
@@ -278,13 +276,13 @@ Hypotheses
          At least one group mean is significantly different
     Significance Level : alpha = 0.05
 
-ANOVA Results
+**ANOVA Results**
 
     F-Statistic  :  153.3946
     P-Value      :  0.000000
     Decision     :  Reject H0
 
-Effect Size (Eta Squared)
+**Effect Size (Eta Squared)**
 
 Eta squared measures what proportion of total variance in command failures is
 explained by noise level.
@@ -296,7 +294,7 @@ explained by noise level.
 Noise level explains only 3.26% of total variance in command failures. While
 the difference is statistically real, it is practically small.
 
-Post-Hoc Test: Tukey HSD
+**Post-Hoc Test: Tukey HSD**
 
 ANOVA tells us that at least one group is different but does not tell us which
 specific pairs differ. Tukey HSD performs all pairwise comparisons while
@@ -309,7 +307,7 @@ controlling for multiple testing error.
 
 All three pairs are significantly different from each other.
 
-Business Interpretation
+**Business Interpretation**
 
 Noise level statistically significantly affects command failures. High noise
 environments produce on average 1.86 more failures per session than low noise
@@ -317,23 +315,23 @@ environments. However the effect size is small (eta squared = 0.0326) meaning
 noise alone explains only about 3% of why failures occur. The majority of command
 failure variation comes from other factors not captured by noise level alone.
 
-Recommendation
+**Recommendation**
 
 Investigate additional factors such as connection type, device health and signal
 strength before making large investments in noise reduction infrastructure. Noise
 matters but it is not the primary driver of command failures.
 
 
-================================================================================
-8. HYPOTHESIS TEST 2: IS MS TEAMS BETTER THAN WEBEX?
-================================================================================
+---
+8.HYPOTHESIS TEST 2: IS MS TEAMS BETTER THAN WEBEX?
+---
 
-Business Question
+**Business Question**
 
 Does MS Teams deliver significantly higher worker productivity compared to Webex
 in RealWear industrial remote assistance sessions?
 
-Approach and Test Selection
+**Approach and Test Selection**
 
 We used Welch's Independent T-Test with a one-tailed approach. T-Test was chosen
 because we are comparing exactly two groups. We used Welch's version rather than
@@ -342,18 +340,18 @@ groups. The test is one-tailed because we have a directional hypothesis: we are
 not just asking if they are different, we are specifically asking if MS Teams is
 better than Webex.
 
-Hypotheses
+**Hypotheses**
 
     H0 : Average productivity of MS Teams users is less than or equal to Webex
     H1 : Average productivity of MS Teams users is greater than Webex
     Significance Level : alpha = 0.05
 
-Group Sizes
+**Group Sizes**
 
     MS Teams  :  8,189 sessions    =>  CLT APPLIES
     Webex     :  3,811 sessions    =>  CLT APPLIES
 
-Results
+**Results**
 
     T-Statistic   :  120.0369
     T-Critical    :  1.6450
@@ -363,7 +361,7 @@ Results
 Since T-Statistic (120.04) is far greater than T-Critical (1.645), we reject H0
 with very strong evidence.
 
-Business Interpretation
+**Business Interpretation**
 
 MS Teams is statistically significantly more productive than Webex with extremely
 strong evidence (T = 120.04). This aligns with our earlier Excel finding where MS
@@ -371,52 +369,51 @@ Teams showed 17% higher productivity and 33% better resolution efficiency than
 Webex. The statistical test now confirms this is not a random difference but a
 genuine and consistent performance gap.
 
-Recommendation
+**Recommendation**
 
 Standardize MS Teams as the primary platform across all 5 plants. Webex should
 be phased out or restricted to specific non-critical use cases.
 
-
-================================================================================
+----
 9. HYPOTHESIS TEST 3: IS NIGHT SHIFT MORE PRODUCTIVE?
-================================================================================
+----
 
-Business Question
+**Business Question**
 
 Does shift timing (Morning, Afternoon, Night) significantly influence worker
 productivity in RealWear sessions?
 
-Context
+**Context**
 
 Our Excel pivot table analysis showed night shift with the highest average
 productivity score (77.67) while morning had the lowest (77.34). We now test
 whether this observed difference is statistically real or just random variation.
 
-Approach and Test Selection
+**Approach and Test Selection**
 
 One Way ANOVA was used to compare productivity across three shifts simultaneously.
 
-Hypotheses
+**Hypotheses**
 
     H0 : No significant difference in productivity across Morning, Afternoon
          and Night shifts. mu_morning = mu_afternoon = mu_night
     H1 : At least one shift has significantly different productivity
     Significance Level : alpha = 0.05
 
-Group Statistics
+**Group Statistics**
 
     Shift        Sample Size    Mean      Std
     Morning      3,964          77.47     14.82
     Afternoon    4,031          77.34     14.84
     Night        4,005          77.67     14.74
 
-ANOVA Results
+**ANOVA Results**
 
     F-Statistic  :  0.5126
     P-Value      :  0.598938
     Decision     :  Fail to Reject H0
 
-Effect Size
+**Effect Size**
 
     Eta Squared  :  0.0001
     Interpretation :  Negligible effect
@@ -424,7 +421,7 @@ Effect Size
 Shift timing explains only 0.01% of total productivity variance. This is
 effectively zero influence.
 
-Important Finding: Excel vs Statistics
+**Important Finding: Excel vs Statistics**
 
 This is one of the most important findings in the entire project. Our Excel
 analysis showed night shift as most productive while ANOVA confirms there is no
@@ -438,7 +435,7 @@ This demonstrates why statistical validation must follow exploratory analysis.
 Without this test, management might have incorrectly redesigned shift schedules
 based on a 0.33-point difference that is entirely due to random variation.
 
-Business Recommendation
+**Business Recommendation**
 
 Statistical analysis reveals no significant difference in productivity across
 Morning, Afternoon and Night shifts (F = 0.512, p = 0.599, eta squared = 0.0001).
@@ -448,47 +445,47 @@ choice, noise levels and device health which have shown stronger relationships
 with productivity.
 
 
-================================================================================
+----
 10. HYPOTHESIS TEST 4: DOES EXTERNAL MICROPHONE REDUCE COMMAND FAILURES?
-================================================================================
+----
 
-Business Question
+**Business Question**
 
 Does using an external microphone significantly reduce voice command failures in
 RealWear devices?
 
-Approach and Test Selection
+**Approach and Test Selection**
 
 Welch's Independent T-Test was selected for this two-group comparison. Levene's
 test confirmed unequal variances (Stat = 18.9851, p = 0.0000) so Welch's version
 was appropriate. The test was one-tailed because our hypothesis is directional:
 we expected external microphones to reduce failures, not just change them.
 
-Hypotheses
+**Hypotheses**
 
     H0 : External microphone has no significant effect on command failures
     H1 : External microphone significantly reduces command failures
     Significance Level : alpha = 0.05
 
-Group Statistics
+**Group Statistics**
 
     Group                  Sample Size    Mean Failures    Std
     With External Mic      5,620          6.21             4.70
     Without External Mic   6,380          5.05             4.40
 
-T-Test Results
+**T-Test Results**
 
     T-Statistic            :  -13.8902
     T-Critical             :  1.6450
     Degrees of Freedom     :  11,566.48
     Decision               :  Fail to Reject H0
 
-Effect Size
+**Effect Size**
 
     Cohen's d    :  -0.2552
     Interpretation :  Small effect (negative direction)
 
-Surprising Finding: Confounding Variable Identified
+**Surprising Finding: Confounding Variable Identified**
 
 Workers with external microphones showed MORE failures (6.21) compared to those
 without (5.05). This appears to contradict the hypothesis but the explanation
@@ -507,7 +504,7 @@ isolated.
 
 This finding was verified by running the test separately for each noise category.
 
-Business Interpretation
+**Business Interpretation**
 
 External microphones do not significantly reduce command failures when analysed
 across all sessions. The apparent negative result is explained by deployment
@@ -515,7 +512,7 @@ concentration in high noise areas. The real business question is whether
 microphone type makes a difference within high noise environments specifically,
 which requires the controlled analysis described above.
 
-Recommendation
+**Recommendation**
 
 Do not make microphone policy decisions based on the overall comparison. Analyse
 microphone effectiveness within controlled noise categories. Invest in
@@ -523,34 +520,34 @@ understanding and reducing noise exposure at source rather than relying on
 peripheral equipment as a fix.
 
 
-================================================================================
+----
 11. HYPOTHESIS TEST 5: DOES PLANT LOCATION AFFECT PRODUCTIVITY?
-================================================================================
+----
 
-Business Question
+**Business Question**
 
 Does the specific manufacturing plant where a worker is based significantly
 influence their productivity score?
 
-Context
+**Context**
 
 Our Excel analysis showed Bokaro Manufacturing Hub with the highest productivity
 (78.04) and Vadodara Chemical Unit and Chennai Refinery Unit with the lowest
 (77.15). The difference between highest and lowest is 0.89 points. We now test
 whether this is a real difference or random noise.
 
-Approach and Test Selection
+**Approach and Test Selection**
 
 One Way ANOVA was used to compare productivity across all five plants simultaneously.
 Tukey HSD was planned as the post-hoc test if ANOVA showed significance.
 
-Hypotheses
+**Hypotheses**
 
     H0 : No significant difference in productivity across plants
     H1 : At least one plant has significantly different productivity
     Significance Level : alpha = 0.05
 
-Group Statistics
+**Group Statistics**
 
     Plant                         Sample Size    Mean      Std
     Bokaro Manufacturing Hub      2,433          78.04     14.66
@@ -559,18 +556,18 @@ Group Statistics
     Chennai Refinery Unit         2,432          77.15     14.80
     Vadodara Chemical Unit        2,311          77.15     14.83
 
-ANOVA Results
+**ANOVA Results**
 
     F-Statistic  :  2.0384
     P-Value      :  0.086181
     Decision     :  Fail to Reject H0
 
-Effect Size
+**Effect Size**
 
     Eta Squared  :  0.0007
     Interpretation :  Negligible effect
 
-Nuanced Interpretation: Borderline P-Value
+**Nuanced Interpretation: Borderline P-Value**
 
 This result is more nuanced than the shift analysis. While we fail to reject H0,
 the p-value of 0.086 is meaningfully different from the shift p-value of 0.598.
@@ -585,7 +582,7 @@ smaller differences. With 50,000 sessions this same 0.89-point difference might
 cross the significance threshold. This does not mean the difference is important
 but it does mean plant-level performance deserves ongoing monitoring.
 
-Business Recommendation
+**Business Recommendation**
 
 Plant location shows no statistically significant effect on productivity (F = 2.038,
 p = 0.086, eta squared = 0.0007). The borderline p-value suggests a possible
@@ -596,18 +593,18 @@ a larger dataset before drawing plant-specific conclusions or allocating resourc
 differently across plants.
 
 
-================================================================================
+----
 12. CORRELATION ANALYSIS
-================================================================================
+----
 
-What We Did
+**What We Did**
 
 We computed a Pearson Correlation Matrix across all 11 numeric variables and
 visualized it as a heatmap. We then ranked all variables by their absolute
 correlation with Productivity_Score to identify which factors most influence
 worker productivity.
 
-Top Factors Correlated with Productivity Score
+**Top Factors Correlated with Productivity Score**
 
     Rank    Factor                  Correlation    Strength     Direction
     1       Command_Success_Rate    +0.6996        Moderate     Positive
@@ -621,14 +618,14 @@ Top Factors Correlated with Productivity Score
     9       battery_drain_percent   +0.0058        Negligible   Positive
     10      Battery_Start_%         +0.0025        Negligible   Positive
 
-Interpretation Guide
+**Interpretation Guide**
 
     Absolute r above 0.7   =>  Strong correlation
     Absolute r 0.4 to 0.7  =>  Moderate correlation
     Absolute r 0.2 to 0.4  =>  Weak correlation
     Absolute r below 0.2   =>  Negligible correlation
 
-Key Findings
+**Key Findings**
 
 Command_Success_Rate has the strongest positive correlation with Productivity at
 +0.70. This is intuitive: workers who issue voice commands that succeed consistently
@@ -646,7 +643,7 @@ All remaining factors (battery, signal strength, resolution time, meeting durati
 have negligible correlations below 0.07, meaning they contribute very little to
 explaining productivity variation.
 
-Business Interpretation
+**Business Interpretation**
 
 Productivity is primarily driven by voice command performance. The two strongest
 predictors of high productivity are high command success rate and low command
@@ -654,16 +651,16 @@ failures. These account for most of the explainable variation in productivity.
 External operational factors like battery level, signal strength and session
 duration have almost no direct relationship with productivity.
 
-Recommendation
+**Recommendation**
 
 Focus improvement efforts on reducing command failures and improving voice command
 success rates rather than optimizing operational factors like battery management
 or session duration. This is where the highest return on investment lies.
 
 
-================================================================================
+----
 OVERALL STATISTICAL SUMMARY
-================================================================================
+----
 
 Test                                    Result              Key Metric
 Normality (Shapiro-Wilk)               Not normal          All p = 0.000
@@ -676,18 +673,18 @@ Test 5: Plant vs Productivity           Not significant     p = 0.086, borderlin
 Test 6: Correlation Analysis            Complete            Top factor: Command_Success_Rate
 
 
-================================================================================
+
 TESTS REMAINING
-================================================================================
+
 
 Test 7    :  Chi-Square Test (Platform vs Plant Location independence)
 Test 8    :  Linear Regression (Predict Productivity Score)
 Test 9    :  Outlier Detection (IQR and Z-Score methods)
 
 
-================================================================================
+----
 OVERALL CONCLUSIONS FOR BUSINESS
-================================================================================
+----
 
 1. Voice command performance is the most critical driver of productivity. Reducing
    command failures and improving success rates will have the highest impact.
@@ -708,6 +705,3 @@ OVERALL CONCLUSIONS FOR BUSINESS
    Ongoing monitoring with larger data collection is recommended before plant-
    specific strategies are implemented.
 
-
-Last Updated : After Correlation Analysis (Test 6)
-Next Update  : After Chi-Square, Regression and Outlier Detection
