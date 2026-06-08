@@ -705,3 +705,47 @@ OVERALL CONCLUSIONS FOR BUSINESS
    Ongoing monitoring with larger data collection is recommended before plant-
    specific strategies are implemented.
 
+
+Interpretation
+Looking at the contingency table, every plant shows almost identical platform distribution. MS Teams accounts for roughly 68% of sessions and Webex roughly 32% across all five plants without exception. This uniform pattern is exactly what statistical independence looks like in practice.
+The Chi-Square statistic of 3.067 with p-value of 0.547 confirms this — there is a 54.7% chance of seeing this distribution even if platform choice had absolutely no relationship with plant location. That is far above our 0.05 threshold.
+Cramer's V of 0.016 means the association between plant and platform is negligible — essentially zero. Plant location explains less than 0.03% of platform choice variation.
+
+
+**Business Recommendation**
+
+Platform deployment appears to be centrally managed at the organizational level rather than decided plant by plant. All five plants use MS Teams as the dominant platform at roughly the same rate regardless of their location, industry type or operational context.
+This is actually good news for the standardization recommendation we made in Test 2. Since MS Teams is already the dominant platform across all plants uniformly and since we proved MS Teams significantly outperforms Webex in productivity, the business case for complete standardization is straightforward.
+There is no plant-specific resistance or preference for Webex to overcome. The transition from 68% to 100% MS Teams adoption can be implemented as a single organization-wide policy without needing plant-specific change management strategies.
+
+Why IQR and Z-Score Give Different Counts
+IQR method is based on the spread of the middle 50% of data (Q1 to Q3). It is more sensitive to skewed distributions and catches more outliers when data is not symmetric. Command_Failures is right skewed (skewness = 1.15 from our descriptive stats) which is why IQR catches 275 outliers.
+Z-Score method is based on standard deviation from mean. It assumes roughly normal distribution and uses a stricter threshold of 3 standard deviations. This is why it only catches 94 outliers for the same column.
+For skewed data like Command_Failures, IQR is the more appropriate method. For symmetric data like Productivity_Score, both methods agree — zero outliers.
+
+Column by Column Findings
+Productivity_Score
+Both methods found zero outliers. Max Z-Score of 1.52 means the most extreme productivity value is only 1.52 standard deviations from the mean. This is well within normal range. Productivity scores are clean and well bounded between 15 and 134 as confirmed by IQR bounds.
+Command_Failures
+Most problematic column. IQR found 275 outlier sessions (2.29%) where failures exceeded 17 per session. Z-Score confirmed 94 extreme sessions with Max Z of 4.02 meaning some sessions had command failures more than 4 standard deviations above average. These are genuinely anomalous sessions that likely represent device malfunctions, extreme noise events or network failures rather than normal operational variation.
+Resolution_Time_min
+IQR found 15 sessions (0.12%) exceeding 132 minutes resolution time. Z-Score confirmed 1 extreme session. These represent unusually complex issues that took far longer than normal to resolve. These sessions likely involved critical equipment failures or situations requiring escalation to senior specialists.
+Noise_Level_dB, Battery_Drain, Downtime_Saved, Productivity_Score
+All four columns show zero outliers in both methods. These metrics are well controlled and consistent across all 12,000 sessions.
+
+Overall Outlier Summary
+Total Sessions Analyzed    :  12,000
+Columns with Outliers      :  2 out of 6
+Cleanest Metric            :  Productivity_Score (Max Z = 1.52)
+Most Problematic Metric    :  Command_Failures (275 outliers, 2.29%)
+Overall Data Quality       :  Good — only 2.29% anomalous sessions
+
+Business Interpretation
+The dataset is remarkably clean with only Command_Failures and Resolution_Time showing meaningful outliers. The 275 anomalous sessions with extremely high command failures (above 17 per session) represent 2.29% of all sessions and deserve special investigation. These sessions are likely driving the statistical noise we observed in earlier hypothesis tests and may represent specific device failures, extreme environmental conditions or network outages rather than normal operational behavior.
+
+Business Recommendation
+Isolate the 275 high failure sessions and investigate their common characteristics — which plant, which device, which shift, which connection type. These sessions likely share a pattern that when identified can be prevented through targeted maintenance or operational changes. Removing or flagging these sessions in future analysis will also improve the accuracy of productivity and failure rate benchmarks used in management reporting.
+
+
+
+S
