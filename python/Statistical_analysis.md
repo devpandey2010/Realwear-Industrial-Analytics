@@ -707,6 +707,7 @@ OVERALL CONCLUSIONS FOR BUSINESS
 
 
 Interpretation
+
 Looking at the contingency table, every plant shows almost identical platform distribution. MS Teams accounts for roughly 68% of sessions and Webex roughly 32% across all five plants without exception. This uniform pattern is exactly what statistical independence looks like in practice.
 The Chi-Square statistic of 3.067 with p-value of 0.547 confirms this — there is a 54.7% chance of seeing this distribution even if platform choice had absolutely no relationship with plant location. That is far above our 0.05 threshold.
 Cramer's V of 0.016 means the association between plant and platform is negligible — essentially zero. Plant location explains less than 0.03% of platform choice variation.
