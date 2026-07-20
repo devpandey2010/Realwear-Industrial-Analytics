@@ -180,14 +180,6 @@ Studying relationships, schema structure, and operational metrics.
 
 Interactive Power BI dashboards for operational monitoring and executive reporting.
 
-## 8. Machine Learning
-
-Predictive models for:
-
-* Command failure prediction
-* Resolution time prediction
-* Operational risk analysis
-
 ---
 
 # Key KPIs
@@ -240,18 +232,6 @@ The project includes multiple interactive dashboards:
 * Plant performance analysis
 
 ---
-
-# Machine Learning Models
-
-The project includes predictive analytics models such as:
-
-## Command Failure Prediction
-
-Predicting communication failure probability using operational conditions.
-
-## Resolution Time Prediction
-
-Estimating issue resolution time using operational and communication metrics.
 
 ## Risk Analysis
 
