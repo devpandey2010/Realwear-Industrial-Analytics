@@ -282,7 +282,7 @@ RealWear-Industrial-Analytics/
 │   ├── 02_data_cleaning.ipynb
 │   ├── 03_eda.ipynb
 │   ├── 04_statistical_analysis.ipynb
-│   ├── 05_machine_learning.ipynb
+│
 │
 ├── sql/
 │   ├── industrial_queries.sql
