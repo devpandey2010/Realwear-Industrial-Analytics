@@ -1,4 +1,4 @@
-# RealWear Industrial Analytics & Smart Factory Intelligence System
+# RealWear Industrial Analytics
 
 ## Overview
 
